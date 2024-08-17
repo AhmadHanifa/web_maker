@@ -379,3 +379,8 @@ Route::get('/test525/edit/{id}', [App\Http\Controllers\Test525Controller::class,
 Route::get('/test525/index', [App\Http\Controllers\Test525Controller::class, 'index'])->name('test525.index');
 Route::post('/test525/store', [App\Http\Controllers\Test525Controller::class, 'store'])->name('test525.store');
 Route::put('/test525/update/{id}', [App\Http\Controllers\Test525Controller::class, 'update'])->name('test525.update');
+Route::get('/test267/create', [App\Http\Controllers\Test267Controller::class, 'create'])->name('test267.create');
+Route::get('/test267/edit/{id}', [App\Http\Controllers\Test267Controller::class, 'edit'])->name('test267.edit');
+Route::get('/test267/index', [App\Http\Controllers\Test267Controller::class, 'index'])->name('test267.index');
+Route::post('/test267/store', [App\Http\Controllers\Test267Controller::class, 'store'])->name('test267.store');
+Route::put('/test267/update/{id}', [App\Http\Controllers\Test267Controller::class, 'update'])->name('test267.update');

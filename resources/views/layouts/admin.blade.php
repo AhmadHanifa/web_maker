@@ -323,6 +323,7 @@
                             </div>
                             <div class="col-12 px-0" >
                                 <ul class="sub-item font-1" style="list-style:none;">
+                                    <li><a href="{{ route('test267.index') }}" style="font-size: 16px;"><span class="fal fa-book px-2" style="width: 28px;font-size: 15px;"></span>test267</a></li>
                                     <li><a href="{{ route('test525.index') }}" style="font-size: 16px;"><span class="fal fa-book px-2" style="width: 28px;font-size: 15px;"></span>test525</a></li>
                                    
                                     <li><a href="{{ route('test564.index') }}" style="font-size: 16px;"><span class="fal fa-book px-2" style="width: 28px;font-size: 15px;"></span>test564</a></li>

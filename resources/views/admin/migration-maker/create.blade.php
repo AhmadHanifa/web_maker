@@ -66,7 +66,7 @@
                     <div class="col-12 pt-3">
                         <select class="form-control select2-select" name="functions[]" multiple >
                             @foreach($functions as $function => $file)
-                                <option value="{{$file}}">{{$function}}</option>
+                                <option style="background-color: #e9ecef color: #495057" value="{{$file}}">{{$function}}</option>
                             @endforeach
                         </select>
                     </div>
