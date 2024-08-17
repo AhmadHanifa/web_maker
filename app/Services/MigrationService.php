@@ -67,7 +67,7 @@ EOD;
         File::put($filePath, $migrationContent);
 
         // تشغيل الميجريشن
-        // self::runMigration($fileName);
+        self::runMigration($fileName);
     }
 
     private static function generateFieldsContent($fields)

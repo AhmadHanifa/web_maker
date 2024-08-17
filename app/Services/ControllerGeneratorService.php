@@ -70,6 +70,7 @@ class ControllerGeneratorService
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ImageHelper;
 use Illuminate\Http\Request;
 {$traits}
 {$modelPath}

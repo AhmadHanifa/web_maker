@@ -334,53 +334,52 @@ Route::get('/التواصل', [indexController::class,'contuct'])->name('contuct
 
 ############################################# End front end ######################################################
 
-
-Route::get('/finishtest/index', [App\Http\Controllers\FinishtestController::class, 'index'])->name('finishtest.index');
-Route::get('/finish2test/index', [App\Http\Controllers\Finish2testController::class, 'index'])->name('finish2test.index');
-Route::get('/test5/index', [App\Http\Controllers\Test5Controller::class, 'index'])->name('test5.index');
-
-Route::post('/test55/create', [App\Http\Controllers\Test55Controller::class, 'create'])->name('test55.create');
-Route::get('/test55/index', [App\Http\Controllers\Test55Controller::class, 'index'])->name('test55.index');
-Route::post('/test100/create', [App\Http\Controllers\Test100Controller::class, 'create'])->name('test100.create');
-Route::get('/test100/index', [App\Http\Controllers\Test100Controller::class, 'index'])->name('test100.index');
-Route::get('/test8/create', [App\Http\Controllers\Test8Controller::class, 'create'])->name('test8.create');
-Route::get('/test8/index', [App\Http\Controllers\Test8Controller::class, 'index'])->name('test8.index');
-Route::post('/test8/store', [App\Http\Controllers\Test8Controller::class, 'store'])->name('test8.store');
-Route::post('/test8/update', [App\Http\Controllers\Test8Controller::class, 'store'])->name('test8.update');
-
-Route::get('/test87/create', [App\Http\Controllers\Test87Controller::class, 'create'])->name('test87.create');
-Route::get('/test87/edit', [App\Http\Controllers\Test87Controller::class, 'edit'])->name('test87.edit');
-Route::get('/test87/index', [App\Http\Controllers\Test87Controller::class, 'index'])->name('test87.index');
-Route::post('/test87/store', [App\Http\Controllers\Test87Controller::class, 'store'])->name('test87.store');
-
-Route::get('/testfinish3/create', [App\Http\Controllers\Testfinish3Controller::class, 'create'])->name('testfinish3.create');
-Route::get('/testfinish3/edit', [App\Http\Controllers\Testfinish3Controller::class, 'edit'])->name('testfinish3.edit');
-Route::get('/testfinish3/index', [App\Http\Controllers\Testfinish3Controller::class, 'index'])->name('testfinish3.index');
-Route::post('/testfinish3/store', [App\Http\Controllers\Testfinish3Controller::class, 'store'])->name('testfinish3.store');
-Route::get('/testfinish3/update', [App\Http\Controllers\Testfinish3Controller::class, 'update'])->name('testfinish3.update');
-Route::get('/test200/create', [App\Http\Controllers\Test200Controller::class, 'create'])->name('test200.create');
-Route::get('/test200/edit', [App\Http\Controllers\Test200Controller::class, 'edit'])->name('test200.edit');
-Route::get('/test200/index', [App\Http\Controllers\Test200Controller::class, 'index'])->name('test200.index');
-Route::post('/test200/store', [App\Http\Controllers\Test200Controller::class, 'store'])->name('test200.store');
-Route::get('/test200/update', [App\Http\Controllers\Test200Controller::class, 'update'])->name('test200.update');
-
-Route::get('/test564/create', [App\Http\Controllers\Test564Controller::class, 'create'])->name('test564.create');
-Route::get('/test564/edit/{id}', [App\Http\Controllers\Test564Controller::class, 'edit'])->name('test564.edit');
-Route::get('/test564/index', [App\Http\Controllers\Test564Controller::class, 'index'])->name('test564.index');
-Route::post('/test564/store', [App\Http\Controllers\Test564Controller::class, 'store'])->name('test564.store');
-Route::get('/test258/create', [App\Http\Controllers\Test258Controller::class, 'create'])->name('test258.create');
-Route::get('/test258/edit/{id}', [App\Http\Controllers\Test258Controller::class, 'edit'])->name('test258.edit');
-Route::get('/test258/index', [App\Http\Controllers\Test258Controller::class, 'index'])->name('test258.index');
-Route::post('/test258/store', [App\Http\Controllers\Test258Controller::class, 'store'])->name('test258.store');
-Route::put('/test258/update/{id}', [App\Http\Controllers\Test258Controller::class, 'update'])->name('test258.update');
-
-Route::get('/test525/create', [App\Http\Controllers\Test525Controller::class, 'create'])->name('test525.create');
-Route::get('/test525/edit/{id}', [App\Http\Controllers\Test525Controller::class, 'edit'])->name('test525.edit');
-Route::get('/test525/index', [App\Http\Controllers\Test525Controller::class, 'index'])->name('test525.index');
-Route::post('/test525/store', [App\Http\Controllers\Test525Controller::class, 'store'])->name('test525.store');
-Route::put('/test525/update/{id}', [App\Http\Controllers\Test525Controller::class, 'update'])->name('test525.update');
-Route::get('/test267/create', [App\Http\Controllers\Test267Controller::class, 'create'])->name('test267.create');
-Route::get('/test267/edit/{id}', [App\Http\Controllers\Test267Controller::class, 'edit'])->name('test267.edit');
-Route::get('/test267/index', [App\Http\Controllers\Test267Controller::class, 'index'])->name('test267.index');
-Route::post('/test267/store', [App\Http\Controllers\Test267Controller::class, 'store'])->name('test267.store');
-Route::put('/test267/update/{id}', [App\Http\Controllers\Test267Controller::class, 'update'])->name('test267.update');
+Route::get('/test1/create', [App\Http\Controllers\Test1Controller::class, 'create'])->name('test1.create.web');
+Route::get('/test1/edit', [App\Http\Controllers\Test1Controller::class, 'edit'])->name('test1.edit.web');
+Route::get('/test1/index', [App\Http\Controllers\Test1Controller::class, 'index'])->name('test1.index.web');
+Route::get('/test1/store', [App\Http\Controllers\Test1Controller::class, 'store'])->name('test1.store.web');
+Route::get('/test1/update', [App\Http\Controllers\Test1Controller::class, 'update'])->name('test1.update.web');
+Route::get('/test2/create', [App\Http\Controllers\controlPanal\Test2Controller::class, 'create'])->name('test2.create.web');
+Route::get('/test2/edit', [App\Http\Controllers\controlPanal\Test2Controller::class, 'edit'])->name('test2.edit.web');
+Route::get('/test2/index', [App\Http\Controllers\controlPanal\Test2Controller::class, 'index'])->name('test2.index.web');
+Route::get('/test2/store', [App\Http\Controllers\controlPanal\Test2Controller::class, 'store'])->name('test2.store.web');
+Route::get('/test2/update', [App\Http\Controllers\controlPanal\Test2Controller::class, 'update'])->name('test2.update.web');
+Route::get('/test3/create', [App\Http\Controllers\controlPanal\Test3Controller::class, 'create'])->name('test3.create.web');
+Route::get('/test3/edit', [App\Http\Controllers\controlPanal\Test3Controller::class, 'edit'])->name('test3.edit.web');
+Route::get('/test3/index', [App\Http\Controllers\controlPanal\Test3Controller::class, 'index'])->name('test3.index.web');
+Route::get('/test3/store', [App\Http\Controllers\controlPanal\Test3Controller::class, 'store'])->name('test3.store.web');
+Route::get('/test3/update', [App\Http\Controllers\controlPanal\Test3Controller::class, 'update'])->name('test3.update.web');
+Route::get('/test4/create', [App\Http\Controllers\controlPanal\Test4Controller::class, 'create'])->name('test4.create.web');
+Route::get('/test4/edit', [App\Http\Controllers\controlPanal\Test4Controller::class, 'edit'])->name('test4.edit.web');
+Route::get('/test4/index', [App\Http\Controllers\controlPanal\Test4Controller::class, 'index'])->name('test4.index.web');
+Route::post('/test4/store', [App\Http\Controllers\controlPanal\Test4Controller::class, 'store'])->name('test4.store.web');
+Route::post('/test4/update', [App\Http\Controllers\controlPanal\Test4Controller::class, 'update'])->name('test4.update.web');
+Route::get('/exelexport/create', [App\Http\Controllers\controlPanal\ExelexportController::class, 'create'])->name('exelexport.create.web');
+Route::get('/exelexport/index', [App\Http\Controllers\controlPanal\ExelexportController::class, 'index'])->name('exelexport.index.web');
+Route::get('/exelexport/store', [App\Http\Controllers\controlPanal\ExelexportController::class, 'store'])->name('exelexport.store.web');
+Route::get('/imagepro/create', [App\Http\Controllers\controlPanal\ImageproController::class, 'create'])->name('imagepro.create.web');
+Route::get('/imagepro/edit', [App\Http\Controllers\controlPanal\ImageproController::class, 'edit'])->name('imagepro.edit.web');
+Route::get('/imagepro/index', [App\Http\Controllers\controlPanal\ImageproController::class, 'index'])->name('imagepro.index.web');
+Route::post('/imagepro/store', [App\Http\Controllers\controlPanal\ImageproController::class, 'store'])->name('imagepro.store.web');
+Route::post('/imagepro/update', [App\Http\Controllers\controlPanal\ImageproController::class, 'update'])->name('imagepro.update.web');
+Route::get('/imagetest/create', [App\Http\Controllers\controlPanal\ImagetestController::class, 'create'])->name('imagetest.create.web');
+Route::get('/imagetest/edit', [App\Http\Controllers\controlPanal\ImagetestController::class, 'edit'])->name('imagetest.edit.web');
+Route::get('/imagetest/index', [App\Http\Controllers\controlPanal\ImagetestController::class, 'index'])->name('imagetest.index.web');
+Route::post('/imagetest/store', [App\Http\Controllers\controlPanal\ImagetestController::class, 'store'])->name('imagetest.store.web');
+Route::post('/imagetest/update', [App\Http\Controllers\controlPanal\ImagetestController::class, 'update'])->name('imagetest.update.web');
+Route::get('/imagetest1/create', [App\Http\Controllers\controlPanal\Imagetest1Controller::class, 'create'])->name('imagetest1.create.web');
+Route::get('/imagetest1/edit', [App\Http\Controllers\controlPanal\Imagetest1Controller::class, 'edit'])->name('imagetest1.edit.web');
+Route::get('/imagetest1/index', [App\Http\Controllers\controlPanal\Imagetest1Controller::class, 'index'])->name('imagetest1.index.web');
+Route::post('/imagetest1/store', [App\Http\Controllers\controlPanal\Imagetest1Controller::class, 'store'])->name('imagetest1.store.web');
+Route::post('/imagetest1/update', [App\Http\Controllers\controlPanal\Imagetest1Controller::class, 'update'])->name('imagetest1.update.web');
+Route::get('/imagetest2/create', [App\Http\Controllers\controlPanal\Imagetest2Controller::class, 'create'])->name('imagetest2.create.web');
+Route::get('/imagetest2/edit', [App\Http\Controllers\controlPanal\Imagetest2Controller::class, 'edit'])->name('imagetest2.edit.web');
+Route::get('/imagetest2/index', [App\Http\Controllers\controlPanal\Imagetest2Controller::class, 'index'])->name('imagetest2.index.web');
+Route::post('/imagetest2/store', [App\Http\Controllers\controlPanal\Imagetest2Controller::class, 'store'])->name('imagetest2.store.web');
+Route::post('/imagetest2/update', [App\Http\Controllers\controlPanal\Imagetest2Controller::class, 'update'])->name('imagetest2.update.web');
+Route::get('/imagetest3/create', [App\Http\Controllers\controlPanal\Imagetest3Controller::class, 'create'])->name('imagetest3.create.web');
+Route::get('/imagetest3/edit/{id}', [App\Http\Controllers\controlPanal\Imagetest3Controller::class, 'edit'])->name('imagetest3.edit.web');
+Route::get('/imagetest3/index', [App\Http\Controllers\controlPanal\Imagetest3Controller::class, 'index'])->name('imagetest3.index.web');
+Route::get('/imagetest3/show', [App\Http\Controllers\controlPanal\Imagetest3Controller::class, 'show'])->name('imagetest3.show.web');
+Route::post('/imagetest3/store', [App\Http\Controllers\controlPanal\Imagetest3Controller::class, 'store'])->name('imagetest3.store.web');
+Route::post('/imagetest3/update', [App\Http\Controllers\controlPanal\Imagetest3Controller::class, 'update'])->name('imagetest3.update.web');

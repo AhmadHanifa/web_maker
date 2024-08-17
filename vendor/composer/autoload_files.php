@@ -50,4 +50,5 @@ return array(
     '377b22b161c09ed6e5152de788ca020a' => $vendorDir . '/spatie/laravel-permission/src/helpers.php',
     '101b35f72e0ccb1b5ef72aa86bba3ef9' => $vendorDir . '/yoeunes/toastr/src/helpers.php',
     '06c0f3bae6ab9e69501e19f10a76b989' => $baseDir . '/app/Helpers/makingFilesHelper.php',
+    '11fc3f4d0ee708fa878331ce68d5b617' => $baseDir . '/app/Helpers/ImageHelper.php',
 );

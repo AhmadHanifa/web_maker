@@ -3,36 +3,38 @@
 namespace App\Http\Controllers;
 
 use App\Services\ModelService;
-use App\Services\ControllerGeneratorService;
+use App\Services\BladeControllerGeneratorService;
+use App\Services\APIControllerGeneratorService;
 use App\Services\MigrationService;
 use App\Services\ViewGeneratorService;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Helpers\RouteHelper;
-
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Http\Request;
 use ReflectionClass;
 
 class PageGeneratorController extends Controller
 {
     protected $ModelService;
-    protected $ControllerGeneratorService;
+    protected $BladeControllerGeneratorService;
+    protected $APIControllerGeneratorService;
     protected $MigrationService;
     protected $ViewGeneratorService;
 
     public function __construct(
         ModelService $ModelService,
-        ControllerGeneratorService $ControllerGeneratorService,
+        BladeControllerGeneratorService $BladeControllerGeneratorService,
+        APIControllerGeneratorService $APIControllerGeneratorService,
         MigrationService $MigrationService,
         ViewGeneratorService $ViewGeneratorService
-
     ) {
         $this->ModelService = $ModelService;
-        $this->ControllerGeneratorService = $ControllerGeneratorService;
+        $this->BladeControllerGeneratorService = $BladeControllerGeneratorService;
+        $this->APIControllerGeneratorService = $APIControllerGeneratorService;
         $this->MigrationService = $MigrationService;
         $this->ViewGeneratorService = $ViewGeneratorService;
-
     }
 
     public function createPage(Request $request)
@@ -50,79 +52,59 @@ class PageGeneratorController extends Controller
         //     'functions' => 'required|array'
         // ]);
 
+
         $tableName = $request->input('table_name');
         $columns = $request->input('columns');
-        // dd($columns);
-        $controllerName= ucfirst(Str::camel($tableName)) . 'Controller';
-        // $controllerName = $request->input('controller_name');
-        $relations=$request->input('relations');
-        $requiredFunctions = $request->functions;
-        $functions = [];
-        $functionFiles = scandir(app_path('Functions'));
-        // dd($requiredFunctions);
-        $functionFiles = array_intersect($functionFiles, $requiredFunctions);
+        $controllerName = ucfirst(Str::camel($tableName)) . 'Controller';
+        $relations = $request->input('relations');
+        $functions_blade = $request->input('functions_blade', []);
+        $functions_api = $request->input('functions_api', []);
+        $type_routes = $request->input('type_route', []); // Array containing 'web', 'api', or both
 
-        foreach ($functionFiles as $file) {
-            if (preg_match('/Function\.php$/', $file)) {
-                $functionName = Str::camel(str_replace('Function.php', '', $file));
-
-                $className = basename($file, '.php');
-                $pathClass = 'App\Functions\\'.$className;
-                $reflectionClass = new ReflectionClass($pathClass);
-                $method = $reflectionClass->getMethod($functionName);
-                $parameters = $method->getParameters();
-                $requestParameter = false;
-                $method='get';
-                foreach ($parameters as $parameter) {
-                    if ($parameter->getType() && $parameter->getType()->getName() === 'Illuminate\Http\Request') {
-                        $method = 'post';
-                        break;
-                    }
-                }
-                $param = '';
-                foreach ($parameters as $parameter) {
-                    if ($parameter->getName() !='request')
-                    $param = $parameter->getName();
-                }
-                if($param != ''&& $method == 'post')
-                $method = 'put';
-                $functions[$functionName] = [
-                    'method' => $method,
-                    'params' => $param
-                ];
-
-                    }
-                }
-
-        $requirdViews = $request->input('views');
-        // dd($requirdViews);
-        // dd($functions , $views);
-        $pathRoute = $request->input('type_route');
         // Generate Migration
-        $this->MigrationService->generateMigrationContent($tableName, $columns,$relations);
-        // استخراج أسماء الأعمدة من مصفوفة الأعمدة
-        $namescolumns = array_column($columns, 'name');
+        $this->MigrationService->generateMigrationContent($tableName, $columns, $relations);
 
-        // استدعاء الدالة مع أسماء الأعمدة فقط
-        $this->ModelService->createModel($tableName, $namescolumns,$relations);
-        // Generate Controller
-        $this->ControllerGeneratorService->createController($controllerName, $functions);
+        // Extract column names from the columns array
+        $namescolumns = array_column($columns, 'name');
+        $this->ModelService->createModel($tableName, $namescolumns, $relations);
+
+        // Generate Controllers and Routes based on type_route
+        if (in_array('web', $type_routes)) {
+            if (!empty($functions_blade) && is_array($functions_blade)) {
+                $this->BladeControllerGeneratorService->createBladeController($controllerName, $functions_blade);
+        RouteHelper::addRoutes($controllerName, $functions_blade, 'web');
+            } else {
+                // Handle the case where functions_blade is not valid
+                return response()->json(['error' => 'Invalid functions_blade data'], 400);
+            }
+        }
+
+        if (in_array('api', $type_routes)) {
+            if (!empty($functions_api) && is_array($functions_api)) {
+                $this->APIControllerGeneratorService->createAPIController($controllerName, $functions_api);
+                RouteHelper::addRoutes($controllerName, $functions_api, 'api');
+            } else {
+                // Handle the case where functions_api is not valid
+                return response()->json(['error' => 'Invalid functions_api data'], 400);
+            }
+        }
+
         // Generate Views
-        $this->ViewGeneratorService->createViews($tableName, $columns, $requirdViews);
-        // Generate Routes
-        RouteHelper::addRoutes($controllerName, $functions, $pathRoute);
+        $this->ViewGeneratorService->createViews($tableName, $columns, $request->input('views'));
+
+        Artisan::call('route:cache');
+
         return response()->json(['message' => 'Page created successfully!']);
     }
-
 
     public function index()
     {
         $migrations = DB::table('migrations')->get();
-
-
         return view('admin.migration-maker.index', compact('migrations'));
     }
-    public function create(){
+
+    public function create()
+    {
         $migrations = DB::table('migrations')->get();
         $migrations_name = [];
         foreach($migrations as $migration){
@@ -130,17 +112,18 @@ class PageGeneratorController extends Controller
         }
 
         $functionFiles = scandir(app_path('Functions'));
-$functions = [];
-foreach ($functionFiles as $file) {
-    if (preg_match('/Function\.php$/', $file)) {
-        $functionName = Str::camel(str_replace('Function.php', '', $file));
-        $className = basename($file, '.php');
-        $functions[$functionName] = $file;
-
+        $functions = [];
+        foreach ($functionFiles as $file) {
+            if (preg_match('/Function\.php$/', $file)) {
+                $functionName = Str::camel(str_replace('Function.php', '', $file));
+                $className = basename($file, '.php');
+                $functions[$functionName] = $file;
             }
+
+            
         }
-        // dd($functions);
-        $views = ['create' , 'index' ,'edit'];
-        return view('admin.migration-maker.create' , compact('migrations_name','functions','views'));
+
+        $views = ['create', 'index', 'edit'];
+        return view('admin.migration-maker.create', compact('migrations_name', 'functions', 'views'));
     }
 }
