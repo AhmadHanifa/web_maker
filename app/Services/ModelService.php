@@ -16,8 +16,9 @@ class ModelService
      * @param array $relations
      * @return void
      */
-    public function createModel($tableName, $columns = [], $hidden = null, $relations = null)
+    public function createModel($tableName, $columns = [], $relations = null , $hidden = null)
     {
+
         $fillable = $columns ? "['" . implode("', '", $columns) . "']" : "[]";
         $hiddenFields = $hidden ? "['" . implode("', '", $hidden) . "']" : "[]";
         $tableName = Str::snake(Str::pluralStudly($tableName));
@@ -54,6 +55,10 @@ EOD;
 
         // إنشاء ملف الموديل
         File::put($modelPath, $modelTemplate);
+
+        // انشاء العلاقة في المودل الثاني
+
+        $this->generateModelRefrenceRelations($relations , $tableName);
     }
 
     /**
@@ -73,6 +78,38 @@ EOD;
         return $relationMethods;
     }
 
+
+    /**
+     * إنشاء العلاقة في المودل المرجع
+     *
+     * @param array $relation
+     * @return string
+     */
+
+     private function generateModelRefrenceRelations($relations , $tableName)
+     {
+
+        foreach ($relations as $relation) {
+
+            $modelRefrence = Str::singular(Str::studly($relation['table_refrence']));
+
+            $toRelation[] = '';
+            $toRelation['table_refrence'] = $tableName;
+            $toRelation['relation_name'] = 'many';
+            $modelRefPath = app_path("Models/{$modelRefrence}.php");
+            $modelContent = File::get($modelRefPath);
+
+             // تحديد موضع إضافة الطريقة الجديدة (قبل نهاية الفئة)
+            $insertPosition = strrpos($modelContent, '}');
+
+            $newRelation =$this->generateRelationMethod($toRelation);
+            // dd($newRelation , $insertPosition);
+            $updatedContent = substr($modelContent, 0, $insertPosition) . $newRelation . substr($modelContent, $insertPosition);
+            // dd($updatedContent);
+            File::put($modelRefPath, $updatedContent);
+
+        }
+     }
     /**
      * إنشاء نص دالة علاقة معينة
      *
@@ -81,9 +118,14 @@ EOD;
      */
     private function generateRelationMethod($relation)
     {
-        $type = $relation['type'];
-        $name = $relation['name'];
-        $model = $relation['model'];
+        if($relation['relation_name'] == 'one_to_many') {
+            $type = 'belongsTo';
+            $name = Str::camel(Str::singular($relation['table_refrence']));
+        }else{
+            $type = 'hasMany';
+            $name = Str::camel($relation['table_refrence']);
+        }
+        $model = Str::singular(Str::studly($relation['table_refrence']));
 
         return <<<EOD
 
@@ -91,6 +133,7 @@ EOD;
     {
         return \$this->{$type}({$model}::class);
     }
+        
 EOD;
     }
 }

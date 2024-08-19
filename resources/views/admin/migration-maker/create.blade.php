@@ -55,7 +55,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div class="col-12 col-lg-6 p-2">
                     <div class="col-12">الفانكشنات المتاحة لـ Blade</div>
                     <div class="col-12 pt-3">
@@ -66,7 +66,7 @@
                         </select>
                     </div>
                 </div>
-                
+
                 <div id="collapse-api" class="collapse col-12 col-lg-6 p-2">
                     <div class="col-12">الفانكشنات المتاحة لـ API</div>
                     <div class="col-12 pt-3">
@@ -77,7 +77,7 @@
                         </select>
                     </div>
                 </div>
-                
+
 
                 <div class="col-12 p-3 row">
                     <div class="col-12 p-2">صفحات العرض</div>
@@ -231,7 +231,7 @@
             selectForeignkey.classList.add('col-4', 'pt-3');
             const selectDiv = document.createElement('select');
             selectDiv.classList.add('form-control', 'select2-select');
-            selectDiv.name = `relations[][column_name]`;
+            selectDiv.name = `relations[][foreign_key]`;
 
             // Assuming `columnData` is available in JS context, replace with actual data
             columnData.forEach(column => {
@@ -252,12 +252,12 @@
             selectDiv3.name = `relations[][relation_name]`;
 
             const onetooneOption = document.createElement('option');
-            onetooneOption.value = 'One To One';
+            onetooneOption.value = 'one_to_one';
             onetooneOption.textContent = 'One To One';
             selectDiv3.appendChild(onetooneOption);
 
             const onetomanyOption = document.createElement('option');
-            onetomanyOption.value = 'One To Many';
+            onetomanyOption.value = 'one_to_many';
             onetomanyOption.textContent = 'One To Many';
             selectDiv3.appendChild(onetomanyOption);
 
@@ -269,7 +269,7 @@
             selectTable.classList.add('col-4', 'pt-3');
             const selectDiv2 = document.createElement('select');
             selectDiv2.classList.add('form-control', 'select2-select');
-            selectDiv2.name = `relations[][table_name]`;
+            selectDiv2.name = `relations[][table_refrence]`;
 
             // Assuming `migrations` is available in JS context, replace with actual data
             migrations.forEach(migration => {

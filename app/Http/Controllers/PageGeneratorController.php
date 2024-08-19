@@ -56,11 +56,15 @@ class PageGeneratorController extends Controller
         $tableName = $request->input('table_name');
         $columns = $request->input('columns');
         $controllerName = ucfirst(Str::camel($tableName)) . 'Controller';
-        $relations = $request->input('relations');
+        $relations = $request->input('relations');  // table_name , foreign_key , table_rel
         $functions_blade = $request->input('functions_blade', []);
         $functions_api = $request->input('functions_api', []);
         $type_routes = $request->input('type_route', []); // Array containing 'web', 'api', or both
 
+        // $relations[0]['table_refrence'] = 'test267s';
+        // $relations[0]['foreign_key'] = 'company_id';
+        // $relations[0]['relation_name'] = 'one_to_many';
+        
         // Generate Migration
         $this->MigrationService->generateMigrationContent($tableName, $columns, $relations);
 
@@ -120,7 +124,7 @@ class PageGeneratorController extends Controller
                 $functions[$functionName] = $file;
             }
 
-            
+
         }
 
         $views = ['create', 'index', 'edit'];

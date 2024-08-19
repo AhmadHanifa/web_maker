@@ -9,14 +9,16 @@ class MigrationService
 {
     public static function generateMigrationContent($modelName, $fields, $relationships = null)
     {
-        // توليد محتوى الحقول
-        $fieldsContent = self::generateFieldsContent($fields);
-
         // توليد محتوى العلاقات فقط إذا كانت موجودة
         $relationshipsContent = '';
         if ($relationships) {
             $relationshipsContent = self::generateRelationshipsContent($relationships);
         }
+
+        // توليد محتوى الحقول
+        $new_fields = self::filterFields($fields,$relationships);
+        $fieldsContent = self::generateFieldsContent($new_fields);
+
 
         // تحديد اسم الميجريشن واسم الجدول
         $migrationName = 'create_' . Str::snake(Str::pluralStudly($modelName)) . '_table';
@@ -70,6 +72,18 @@ EOD;
         self::runMigration($fileName);
     }
 
+    private static function filterFields($fields, $relationships) {
+        $new_fields = [];
+        foreach($relationships as $relationship ){
+        foreach ($fields as $field) {
+            if ($field['name'] !== $relationship['foreign_key']) {
+                $new_fields[] = $field;
+            }
+        }
+    }
+        return $new_fields;
+    }
+
     private static function generateFieldsContent($fields)
     {
         $content = '';
@@ -83,8 +97,12 @@ EOD;
     private static function generateRelationshipsContent($relationships)
     {
         $content = '';
+
         foreach ($relationships as $relationship) {
-            $content .= "\$table->foreignId('{$relationship['foreign_key']}')->constrained('{$relationship['references_table']}')->onDelete('{$relationship['on_delete']}');\n";
+
+            $foreign_key =$relationship['foreign_key'];
+            $table_refrence = $relationship['table_refrence'];
+            $content .= "\$table->foreignId('{$foreign_key}')->constrained('{$table_refrence}')->onDelete('cascade');\n";
         }
         return $content;
     }

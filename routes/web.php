@@ -334,26 +334,6 @@ Route::get('/التواصل', [indexController::class,'contuct'])->name('contuct
 
 ############################################# End front end ######################################################
 
-Route::get('/test1/create', [App\Http\Controllers\Test1Controller::class, 'create'])->name('test1.create.web');
-Route::get('/test1/edit', [App\Http\Controllers\Test1Controller::class, 'edit'])->name('test1.edit.web');
-Route::get('/test1/index', [App\Http\Controllers\Test1Controller::class, 'index'])->name('test1.index.web');
-Route::get('/test1/store', [App\Http\Controllers\Test1Controller::class, 'store'])->name('test1.store.web');
-Route::get('/test1/update', [App\Http\Controllers\Test1Controller::class, 'update'])->name('test1.update.web');
-Route::get('/test2/create', [App\Http\Controllers\controlPanal\Test2Controller::class, 'create'])->name('test2.create.web');
-Route::get('/test2/edit', [App\Http\Controllers\controlPanal\Test2Controller::class, 'edit'])->name('test2.edit.web');
-Route::get('/test2/index', [App\Http\Controllers\controlPanal\Test2Controller::class, 'index'])->name('test2.index.web');
-Route::get('/test2/store', [App\Http\Controllers\controlPanal\Test2Controller::class, 'store'])->name('test2.store.web');
-Route::get('/test2/update', [App\Http\Controllers\controlPanal\Test2Controller::class, 'update'])->name('test2.update.web');
-Route::get('/test3/create', [App\Http\Controllers\controlPanal\Test3Controller::class, 'create'])->name('test3.create.web');
-Route::get('/test3/edit', [App\Http\Controllers\controlPanal\Test3Controller::class, 'edit'])->name('test3.edit.web');
-Route::get('/test3/index', [App\Http\Controllers\controlPanal\Test3Controller::class, 'index'])->name('test3.index.web');
-Route::get('/test3/store', [App\Http\Controllers\controlPanal\Test3Controller::class, 'store'])->name('test3.store.web');
-Route::get('/test3/update', [App\Http\Controllers\controlPanal\Test3Controller::class, 'update'])->name('test3.update.web');
-Route::get('/test4/create', [App\Http\Controllers\controlPanal\Test4Controller::class, 'create'])->name('test4.create.web');
-Route::get('/test4/edit', [App\Http\Controllers\controlPanal\Test4Controller::class, 'edit'])->name('test4.edit.web');
-Route::get('/test4/index', [App\Http\Controllers\controlPanal\Test4Controller::class, 'index'])->name('test4.index.web');
-Route::post('/test4/store', [App\Http\Controllers\controlPanal\Test4Controller::class, 'store'])->name('test4.store.web');
-Route::post('/test4/update', [App\Http\Controllers\controlPanal\Test4Controller::class, 'update'])->name('test4.update.web');
 Route::get('/exelexport/create', [App\Http\Controllers\controlPanal\ExelexportController::class, 'create'])->name('exelexport.create.web');
 Route::get('/exelexport/index', [App\Http\Controllers\controlPanal\ExelexportController::class, 'index'])->name('exelexport.index.web');
 Route::get('/exelexport/store', [App\Http\Controllers\controlPanal\ExelexportController::class, 'store'])->name('exelexport.store.web');

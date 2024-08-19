@@ -10,5 +10,10 @@ class Test267 extends Model
     protected $fillable = ['name', 'description'];
     protected $hidden = [];
 
-    
-}
+
+
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
+        }
